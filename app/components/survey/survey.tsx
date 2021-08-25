@@ -374,8 +374,9 @@ const styles = StyleSheet.create({
     // marginLeft: 10,
     // marginRight: 10,
     width: "100%",
+
     padding: 10,
     textAlignVertical: "top",
-    fontSize: 18,
+    fontSize: 50,
   },
 })

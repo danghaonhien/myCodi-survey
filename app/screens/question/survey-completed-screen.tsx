@@ -5,31 +5,39 @@ const GREEN = "rgba(141,196,63,1)"
 const PURPLE = "rgba(108,48,237,1)"
 const DARKGRAY = "rgba(74, 87, 101,1)"
 const LIGHTGRAY = "rgba(153, 180, 209,.5)"
+
 const defaultAnswers = {
   opinion: "nothing",
   scale: "0",
   useBoolean: "nothing",
   recommendBoolean: "nothing",
 }
-
-export default class SurveyCompletedScreen extends Component {
-  static navigationOptions = () => {
-    return {
-      headerStyle: {
-        backgroundColor: GREEN,
-        height: 40,
-        elevation: 5,
-      },
-      headerTintColor: "#fff",
-      headerTitle: "Survey Results",
-      headerTitleStyle: {
-        flex: 1,
-      },
-    }
-  }
+interface Props {
+  navigation: any
+}
+export default class SurveyCompletedScreen extends Component<Props> {
+  // static navigationOptions = () => {
+  //   return {
+  //     headerStyle: {
+  //       backgroundColor: GREEN,
+  //       height: 40,
+  //       elevation: 5,
+  //     },
+  //     headerTintColor: "#fff",
+  //     headerTitle: "Survey Results",
+  //     headerTitleStyle: {
+  //       flex: 1,
+  //     },
+  //   }
+  // }
 
   render() {
+    // console.log("this.props", this.props)
+    // const { navigation } = this.props
+    // value = JSON.stringify(navigation.getParam('itemId', 'NO-ID'))
     const answers = this.props.navigation.getParam("surveyAnswers", defaultAnswers)
+    console.log(answers)
+
     return (
       <View style={styles.background}>
         <View style={styles.container}>

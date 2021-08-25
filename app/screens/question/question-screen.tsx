@@ -3,13 +3,33 @@
 /* eslint-disable react-native/sort-styles */
 import { NONE } from "apisauce"
 import React, { Component } from "react"
-import { StyleSheet, Button, ScrollView, Text, TextInput, View } from "react-native"
-import { SimpleSurvey } from "react-native-simple-survey"
-import { color, COLORS } from "../../theme/color"
+import {
+  StyleSheet,
+  Button,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+  Image,
+  ImageStyle,
+  Slider,
+} from "react-native"
 
+import { SimpleSurvey } from "react-native-simple-survey"
+import { color, COLORS, spacing, typography } from "../../theme"
+
+const codiLogo = require("./CodiLogo-04.png")
 const GREEN = "rgba(141,196,63,1)"
 const DARKGRAY = "rgba(74, 87, 101,1)"
-const LIGHTGRAY = "rgba(153, 180, 209,.5)"
+const LIGHTGRAY = "rgba(153, 180, 209,.25)"
+const CODI: ImageStyle = {
+  alignSelf: "center",
+  justifyContent: "center",
+  marginTop: 100,
+  marginBottom: 50,
+  width: 80,
+  height: 80,
+}
 
 const survey = [
   {
@@ -67,6 +87,7 @@ const survey = [
 ]
 
 export default class SurveyScreen extends Component {
+  
   // static navigationOptions = () => {
   //   return {
   //     headerStyle: {
@@ -132,7 +153,7 @@ export default class SurveyScreen extends Component {
    *  is restricted (age, geo-fencing) from your app.
    */
   onAnswerSubmitted(answer) {
-    this.setState({ answersSoFar: JSON.stringify(this.surveyRef.getAnswers(), 2) })
+    this.setState({ answersSoFar: JSON.stringify(this.surveyRef.getAnswers()) })
     switch (answer.questionId) {
       case "opinion": {
         if (COLORS.includes(answer.value.toLowerCase())) {
@@ -145,30 +166,30 @@ export default class SurveyScreen extends Component {
     }
   }
 
-  renderPreviousButton(onPress, enabled) {
-    return (
-      // eslint-disable-next-line react-native/no-inline-styles
-      <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
-        <Button
-          backgroundColor={GREEN}
-          color={GREEN}
-          onPress={onPress}
-          disabled={!enabled}
-          title={"Previous"}
-        />
-      </View>
-    )
-  }
+  // renderPreviousButton(onPress, enabled) {
+  //   return (
+  //     // eslint-disable-next-line react-native/no-inline-styles
+  //     <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
+  //       <Button
+  //         backgroundColor={GREEN}
+  //         color={GREEN}
+  //         onPress={onPress}
+  //         disabled={!enabled}
+  //         title={"Previous"}
+  //       />
+  //     </View>
+  //   )
+  // }
 
   renderNextButton(onPress, enabled) {
     return (
       // eslint-disable-next-line react-native/no-inline-styles
       <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
         <Button
+          backgroundColor={GREEN}
           color={GREEN}
           onPress={onPress}
           disabled={!enabled}
-          backgroundColor={GREEN}
           title={"Next"}
         />
       </View>
@@ -249,6 +270,23 @@ export default class SurveyScreen extends Component {
       />
     )
   }
+  // getVal(val) {
+  //   console.warn(val)
+  // }
+
+  // renderNumericInput(onChange, value, placeholder, onBlur) {
+  //   return (
+  //     <Slider
+  //       style={{ width: 300 }}
+  //       step={1}
+  //       minimumValue={0}
+  //       maximumValue={10}
+  //       value={this.state.value}
+  //       onValueChange={(val) => this.setState({ text: val })}
+  //       onSlidingComplete={(val) => this.getVal(val)}
+  //     />
+  //   )
+  // }
 
   renderInfoText(infoText) {
     return (
@@ -263,6 +301,7 @@ export default class SurveyScreen extends Component {
     return (
       <View style={[styles.background, { backgroundColor: this.state.backgroundColor }]}>
         <View style={styles.container}>
+          <Image source={codiLogo} style={CODI} />
           <SimpleSurvey
             ref={(s) => {
               this.surveyRef = s
@@ -272,7 +311,7 @@ export default class SurveyScreen extends Component {
             containerStyle={styles.surveyContainer}
             selectionGroupContainerStyle={styles.selectionGroupContainer}
             navButtonContainerStyle={{ flexDirection: "row", justifyContent: "space-around" }}
-            renderPrevious={this.renderPreviousButton.bind(this)}
+            // renderPrevious={this.renderPreviousButton.bind(this)}
             renderNext={this.renderNextButton.bind(this)}
             renderFinished={this.renderFinishedButton.bind(this)}
             renderQuestionText={this.renderQuestionText}
@@ -284,10 +323,10 @@ export default class SurveyScreen extends Component {
           />
         </View>
 
-        {/* <ScrollView style={styles.answersContainer}>
+        <ScrollView style={styles.answersContainer}>
           <Text style={{ textAlign: "center" }}>JSON output</Text>
           <Text>{this.state.answersSoFar}</Text>
-        </ScrollView> */}
+        </ScrollView>
       </View>
     )
   }
@@ -310,14 +349,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
-    maxHeight: 700,
-    minHeight: 700,
+    maxHeight: "100%",
+    minHeight: "100%",
   },
 
   container: {
     alignItems: "stretch",
     borderRadius: 10,
-    elevation: 10,
+    elevation: 1,
     flex: 1,
     justifyContent: "center",
     maxWidth: "100%",
@@ -327,6 +366,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
     marginLeft: 10,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    color: "white",
+    alignSelf: "center",
+    alignContent: "center",
   },
   // eslint-disable-next-line react-native/no-color-literals
   numericInput: {
@@ -334,14 +378,20 @@ const styles = StyleSheet.create({
     borderColor: "rgba(204,204,204,1)",
     borderRadius: 10,
     borderWidth: 1,
-    marginLeft: 10,
-    marginRight: 10,
+    // marginLeft: 10,
+    // marginRight: 10,
     padding: 10,
     textAlignVertical: "top",
+    width: "100%",
   },
   questionText: {
-    fontSize: 22,
+    fontSize: 20,
     marginBottom: 20,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    color: "white",
+    alignSelf: "center",
+    alignContent: "center",
   },
   // eslint-disable-next-line react-native/no-color-literals
   selectionGroupContainer: {
@@ -355,6 +405,7 @@ const styles = StyleSheet.create({
   surveyContainer: {
     alignContent: "center",
     alignSelf: "center",
+    justifyContent: "center",
     backgroundColor: LIGHTGRAY,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
@@ -362,8 +413,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 5,
     flexGrow: 0,
     padding: 5,
+    // marginTop: "45%",
     width: "100%",
-    height: "30%",
+    height: "75%",
   },
   // eslint-disable-next-line react-native/no-color-literals
   textBox: {
@@ -374,7 +426,8 @@ const styles = StyleSheet.create({
     // marginLeft: 10,
     // marginRight: 10,
     width: "100%",
-    padding: 10,
+    height: 100,
+
     textAlignVertical: "top",
     fontSize: 18,
   },

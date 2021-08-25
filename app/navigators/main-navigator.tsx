@@ -23,12 +23,8 @@ const LIGHTGRAY = "rgba(153, 180, 209,.5)"
  *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
  */
 export type PrimaryParamList = {
-  survey: {
-    screen: SurveyScreen
-  }
-  SurveyCompleted: {
-    screen: SurveyCompletedScreen
-  }
+  survey: undefined
+  SurveyCompleted: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -38,7 +34,7 @@ export function MainNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        title: "Sample Survey",
+        title: "MyCodi Survey",
         headerStyle: {
           backgroundColor: DARKGRAY,
         },
