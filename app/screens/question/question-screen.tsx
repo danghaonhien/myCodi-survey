@@ -2,8 +2,10 @@
 /* eslint-disable react-native/no-color-literals */
 /* eslint-disable react-native/sort-styles */
 import { NONE } from "apisauce"
-import React, { Component } from "react"
+import React, { Component, useState } from "react"
 import {
+  SafeAreaView,
+  StatusBar,
   StyleSheet,
   Button,
   ScrollView,
@@ -12,7 +14,8 @@ import {
   View,
   Image,
   ImageStyle,
-  Slider,
+  Animated,
+  TouchableOpacity,
 } from "react-native"
 
 import { SimpleSurvey } from "react-native-simple-survey"
@@ -30,7 +33,12 @@ const CODI: ImageStyle = {
   width: 80,
   height: 80,
 }
-
+interface Props {
+  navigation: any
+  route: any
+  backgroundColor: any
+  answersSoFar: any
+}
 const survey = [
   {
     questionType: "Info",
@@ -86,8 +94,7 @@ const survey = [
   },
 ]
 
-export default class SurveyScreen extends Component {
-  
+export default class SurveyScreen extends Component<Props> {
   // static navigationOptions = () => {
   //   return {
   //     headerStyle: {
@@ -154,16 +161,34 @@ export default class SurveyScreen extends Component {
    */
   onAnswerSubmitted(answer) {
     this.setState({ answersSoFar: JSON.stringify(this.surveyRef.getAnswers()) })
-    switch (answer.questionId) {
-      case "opinion": {
-        if (COLORS.includes(answer.value.toLowerCase())) {
-          this.setState({ backgroundColor: answer.value.toLowerCase() })
-        }
-        break
-      }
-      default:
-        break
-    }
+    // switch (answer.questionId) {
+    //   // case "opinion": {
+    //   //   if (COLORS.includes(answer.value.toLowerCase())) {
+    //   //     this.setState({ backgroundColor: answer.value.toLowerCase() })
+    //   //   }
+    //   //   break
+    //   // }
+    //   // case "scale": {
+    //   //   if (COLORS.includes(answer.value.toLowerCase())) {
+    //   //     this.setState({ backgroundColor: answer.value.toLowerCase() })
+    //   //   }
+    //   //   break
+    //   // }
+    //   // case "recommendBoolean": {
+    //   //   if (COLORS.includes(answer.value.toLowerCase())) {
+    //   //     this.setState({ backgroundColor: answer.value.toLowerCase() })
+    //   //   }
+    //   //   break
+    //   // }
+    //   case "useBoolean": {
+    //     if (COLORS.includes(answer.value.toLowerCase())) {
+    //       this.setState({ backgroundColor: answer.value.toLowerCase() })
+    //     }
+    //     break
+    //   }
+    //   default:
+    //     break
+    // }
   }
 
   // renderPreviousButton(onPress, enabled) {
@@ -323,10 +348,10 @@ export default class SurveyScreen extends Component {
           />
         </View>
 
-        <ScrollView style={styles.answersContainer}>
+        {/* <ScrollView style={styles.answersContainer}>
           <Text style={{ textAlign: "center" }}>JSON output</Text>
           <Text>{this.state.answersSoFar}</Text>
-        </ScrollView>
+        </ScrollView> */}
       </View>
     )
   }

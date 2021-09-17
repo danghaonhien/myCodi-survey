@@ -14,28 +14,31 @@ const defaultAnswers = {
 }
 interface Props {
   navigation: any
+  route: any
 }
 export default class SurveyCompletedScreen extends Component<Props> {
-  // static navigationOptions = () => {
-  //   return {
-  //     headerStyle: {
-  //       backgroundColor: GREEN,
-  //       height: 40,
-  //       elevation: 5,
-  //     },
-  //     headerTintColor: "#fff",
-  //     headerTitle: "Survey Results",
-  //     headerTitleStyle: {
-  //       flex: 1,
-  //     },
-  //   }
-  // }
+  static navigationOptions = () => {
+    return {
+      headerStyle: {
+        backgroundColor: GREEN,
+        height: 40,
+        elevation: 5,
+      },
+      headerTintColor: "#fff",
+      headerTitle: "Survey Results",
+      headerTitleStyle: {
+        flex: 1,
+      },
+    }
+  }
 
   render() {
     // console.log("this.props", this.props)
     // const { navigation } = this.props
     // value = JSON.stringify(navigation.getParam('itemId', 'NO-ID'))
-    const answers = this.props.navigation.getParam("surveyAnswers", defaultAnswers)
+    // console.log(this.props.navigation)
+    // const answers = this.props.navigation.getParam("surveyAnswers", defaultAnswers)
+    const answers = this.props.route.params.surveyAnswers
     console.log(answers)
 
     return (
@@ -55,9 +58,7 @@ export default class SurveyCompletedScreen extends Component<Props> {
             <Text style={styles.questionText}>
               Do you recommend My-Codi frequently? {answers.recommendBoolean.value}
             </Text>
-            <Text>
-              Raw JSON: {JSON.stringify(this.props.route.params.answers("surveyAnswers", {}))}
-            </Text>
+            <Text>Raw JSON: {JSON.stringify(this.props.route.params.surveyAnswers)}</Text>
           </ScrollView>
         </View>
       </View>

@@ -1,4 +1,7 @@
 import { palette } from "./palette"
+
+import { Dimensions } from "react-native"
+const { width, height } = Dimensions.get("window")
 export const COLORS = [
   "aliceblue",
   "antiquewhite",
@@ -168,10 +171,13 @@ export const color = {
    * by their under-powered GPUs.
    */
   transparent: "rgba(0, 0, 0, 0)",
+
+  success: "#00C851",
+  error: "#ff4444",
   /**
    * The screen background.
    */
-  background: palette.white,
+  background: "#252C4A",
   /**
    * The main tinting color.
    */
@@ -195,7 +201,6 @@ export const color = {
   /**
    * Error messages and icons.
    */
-  error: palette.angry,
 
   /**
    * Storybook background for Text stories, or any stories where
